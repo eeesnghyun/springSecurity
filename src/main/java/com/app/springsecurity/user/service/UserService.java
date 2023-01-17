@@ -10,8 +10,8 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserService {
 
-    private UserRepository userRepository;
-    private PasswordEncoder passwordEncoder;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public String saveUser(UserDTO userDTO) {
         //패스워드 암호화
@@ -19,5 +19,6 @@ public class UserService {
         userRepository.save(userDTO.toEntity());
         return userDTO.getId();
     }
+
 
 }

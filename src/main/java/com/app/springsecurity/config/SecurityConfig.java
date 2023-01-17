@@ -1,5 +1,7 @@
 package com.app.springsecurity.config;
 
+import com.app.springsecurity.component.CustomAuthenticationSuccessHandler;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,11 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Slf4j
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+    private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -34,24 +39,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         //로그인 설정
-//        http.formLogin()
-//                .loginPage("/login")
-//                .loginProcessingUrl("/authenticate")
-//                .failureUrl("/login?error=true")
-//                .successForwardUrl("/")
-//                .permitAll();
-//
-//        http.logout()
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-//                .logoutSuccessUrl("/login")
-//                .invalidateHttpSession(true);
-//
-//        http.exceptionHandling()
-//                .accessDeniedPage("/denied");
+        http.formLogin()
+                .loginPage("/login")
+                .loginProcessingUrl("/authenticate")
+                .failureUrl("/login?error=true")
+                .successHandler(customAuthenticationSuccessHandler)
+                .permitAll();
+
+        http.logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/login")
+                .invalidateHttpSession(true);
+
+        http.exceptionHandling()
+                .accessDeniedPage("/denied");
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
+
 }
