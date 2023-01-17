@@ -1,5 +1,6 @@
 package com.app.springsecurity.config;
 
+import com.app.springsecurity.component.CustomAuthenticationFailureHandler;
 import com.app.springsecurity.component.CustomAuthenticationSuccessHandler;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -42,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/authenticate")
-                .failureUrl("/login?error=true")
                 .successHandler(customAuthenticationSuccessHandler)
+                .failureHandler(customAuthenticationFailureHandler)
                 .permitAll();
 
         http.logout()
