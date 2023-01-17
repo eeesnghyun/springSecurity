@@ -14,7 +14,7 @@ public class HomeController {
         return "/join";
     }
 
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login")
     public String login() {
         return "/login";
     }
