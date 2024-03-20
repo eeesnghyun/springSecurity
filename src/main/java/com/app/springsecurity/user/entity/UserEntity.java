@@ -1,4 +1,4 @@
-package com.app.springsecurity.user.repo;
+package com.app.springsecurity.user.entity;
 
 import lombok.Builder;
 import lombok.Data;

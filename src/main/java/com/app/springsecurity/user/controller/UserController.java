@@ -14,7 +14,9 @@ public class UserController {
 
     @PostMapping("/user/save")
     public String saveUser(UserDTO userDTO) {
-        return userService.saveUser(userDTO);
+        userService.saveUser(userDTO);
+
+        return "/login";
     }
 
 }

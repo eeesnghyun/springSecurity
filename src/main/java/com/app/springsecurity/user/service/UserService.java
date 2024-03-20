@@ -15,9 +15,9 @@ public class UserService {
 
     public String saveUser(UserDTO userDTO) {
         //패스워드 암호화
-        userDTO.setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        userDTO.setUserPw(passwordEncoder.encode(userDTO.getUserPw()));
         userRepository.save(userDTO.toEntity());
-        return userDTO.getId();
+        return userDTO.getUserId();
     }
 
 

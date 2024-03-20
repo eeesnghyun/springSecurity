@@ -1,6 +1,6 @@
 package com.app.springsecurity.component;
 
-import com.app.springsecurity.user.repo.UserEntity;
+import com.app.springsecurity.user.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;

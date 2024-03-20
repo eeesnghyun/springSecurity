@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/join").permitAll()
-                .antMatchers("/user/join").permitAll()
+                .antMatchers("/user/save").permitAll()
                 .anyRequest().authenticated();
 
         //로그인 설정
