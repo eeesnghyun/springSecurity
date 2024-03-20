@@ -13,11 +13,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public String saveUser(UserDTO userDTO) {
+    public void saveUser(UserDTO userDTO) {
         //패스워드 암호화
         userDTO.setUserPw(passwordEncoder.encode(userDTO.getUserPw()));
         userRepository.save(userDTO.toEntity());
-        return userDTO.getUserId();
     }
 
 
